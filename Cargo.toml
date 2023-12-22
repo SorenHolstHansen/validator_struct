@@ -1,0 +1,5 @@
+[workspace]
+members = [
+    "validator_struct",
+    "validator_struct_derive"
+]
