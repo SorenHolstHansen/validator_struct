@@ -71,7 +71,7 @@ pub fn validator_messages_struct(input: TokenStream) -> TokenStream {
         _ => panic!("This macros only supports structs"),
     };
 
-    let error_struct_name = format_ident!("{}Error", input.ident);
+    let error_struct_name = format_ident!("{}ErrorMessage", input.ident);
     let struct_name = input.ident;
 
     let mut fields: Vec<TokenStream2> = Vec::new();
@@ -98,7 +98,7 @@ pub fn validator_messages_struct(input: TokenStream) -> TokenStream {
 
     let impl_block = quote! {
         impl #struct_name {
-            fn validate_struct(&self) -> Result<(), #error_struct_name> {
+            fn validate_message_struct(&self) -> Result<(), #error_struct_name> {
                 match self.validate() {
                     Ok(_) => Ok(()),
                     Err(e) => {

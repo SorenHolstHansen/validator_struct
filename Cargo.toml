@@ -2,6 +2,12 @@
 name = "validator_struct"
 version = "0.1.0"
 edition = "2021"
+description = "A simple ergonomic addition to the validator crate"
+authors = ["Søren H. Hansen"]
+readme = "README.md"
+repository = "https://github.com/SorenHolstHansen/validator_struct"
+keywords = ["validator", "validation"]
+license = "MIT"
 
 [lib]
 proc-macro = true
