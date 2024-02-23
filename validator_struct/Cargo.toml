@@ -1,8 +1,0 @@
-[package]
-name = "validator_struct"
-version = "0.1.0"
-edition = "2021"
-
-[dependencies]
-validator = "0.16.1"
-validator_struct_derive = { path = "../validator_struct_derive" }

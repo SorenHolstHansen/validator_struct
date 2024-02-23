@@ -1,18 +1,8 @@
-macro_rules! assert_is_type {
-    ($t:ty, $i:ident: $ti:ty) => {
-        const _: () = {
-            fn dummy(v: $t) {
-                let _: $ti = v.$i;
-            }
-        };
-    };
-}
-
 mod tests {
     use validator::Validate;
     use validator_struct::{ValidatorMessageStruct, ValidatorStruct};
 
-    #[derive(Validate, ValidatorStruct)]
+    #[derive(Validate, ValidatorMessageStruct)]
     struct Foo {
         #[validate(length(equal = 5, message = "Please provide a valid foo!"))]
         foo: String,
@@ -25,9 +15,9 @@ mod tests {
             foo: "hi!".into(),
             bar: "there".into(),
         };
-        // assert_is_type!(FooError, bar: i32);
-        let err = bad_foo.validate_struct();
-        println!("KJHDFKJ {:#?}", err.unwrap_err());
+
+        let err = bad_foo.validate_struct().unwrap_err().foo;
+        assert_eq!(err, Some(vec!["Please provide a valid foo!".to_string()]));
         let err = bad_foo.validate().unwrap_err().to_string();
         assert_eq!(err, "foo: Please provide a valid foo!");
     }
