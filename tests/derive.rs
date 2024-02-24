@@ -1,8 +1,9 @@
 mod tests {
     use validator::Validate;
-    use validator_struct::{ValidatorMessageStruct, ValidatorStruct};
+    use validator_struct::ValidatorStruct;
 
-    #[derive(Validate, ValidatorStruct, ValidatorMessageStruct)]
+    #[derive(Validate, ValidatorStruct)]
+    #[validator_struct(derive(serde::Serialize))]
     struct Foo {
         #[validate(length(equal = 5, message = "Please provide a valid foo!"))]
         foo: String,

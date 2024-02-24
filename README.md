@@ -4,11 +4,11 @@ A simple ergonomic addition to the validator crate.
 
 # Usage
 
-We provide two derive macros to make working with the validator crate easier: `ValidatorStruct` and `ValidatorMessageStruct`
+We provide a simple `ValidatorStruct` derive macro to make working with the validator crate easier.
 
 They can be used alongside the `Validate` derive macro like this
 ```rust
-#[derive(Validate, ValidatorStruct, ValidatorMessageStruct)]
+#[derive(Validate, ValidatorStruct)]
 struct SignupData {
     #[validate(email)]
     mail: String,
@@ -25,10 +25,7 @@ struct SignupData {
 
 fn validate_signup_data(data: SignupData) {
   // validate_struct() returns a SignupDataError struct
-  // Where each field is replaced by a `Vec<ValidationError>`
-  data.validate_struct();
-  // validate_struct() returns a SignupDataErrorMessage struct
   // Where each field is replaced by a `Vec<String>`
-  data.validate_message_struct(); 
+  data.validate_struct();
 }
 ```
