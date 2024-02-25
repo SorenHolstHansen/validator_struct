@@ -1,6 +1,6 @@
 mod tests {
-    use serde::Serialize;
-    use validator::Validate;
+    use serde::{Deserialize, Serialize};
+    use validator::{Validate, ValidationError};
     use validator_struct::ValidatorStruct;
 
     #[derive(Validate, ValidatorStruct)]
@@ -23,5 +23,30 @@ mod tests {
 
         let err = bad_foo.validate().unwrap_err().to_string();
         assert_eq!(err, "foo: Please provide a valid foo!");
+    }
+
+    fn validate_username(username: &str) -> Result<(), ValidationError> {
+        if username.len() < 2 {
+            return Err(ValidationError::new("Username is too short"));
+        };
+
+        Ok(())
+    }
+
+    #[derive(Deserialize, Validate, ValidatorStruct)]
+    #[validator_struct(derive(Serialize))]
+    struct BasicSignupForm {
+        #[validate(custom = "validate_username")]
+        username: String,
+    }
+
+    #[test]
+    fn test_custom_validator() {
+        let bad_form = BasicSignupForm {
+            username: "a".to_string(),
+        };
+
+        let err = bad_form.validate_struct().unwrap_err().username;
+        assert_eq!(err, Some(vec!["Username is too short".to_string()]));
     }
 }

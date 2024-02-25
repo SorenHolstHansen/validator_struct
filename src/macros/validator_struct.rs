@@ -10,8 +10,6 @@ pub fn validator_struct_inner(ast: DeriveInput) -> syn::Result<TokenStream> {
 
     let type_properties = ast.get_type_properties()?;
 
-    println!("TYPE PROPERTIES {:#?}", type_properties);
-
     let struct_data = match ast.data {
         Data::Struct(d) => d,
         _ => {
@@ -40,7 +38,7 @@ pub fn validator_struct_inner(ast: DeriveInput) -> syn::Result<TokenStream> {
                 fields.push(quote! { #ident: Option<Vec<String>> });
                 error_fields.push(
                     quote! { #ident: field_errors.remove(std::stringify!(#ident)).map(|v| {
-                        v.iter().map(|e| e.message.clone().unwrap().to_string()).collect()
+                        v.iter().map(|e| e.message.clone().map(|m| m.to_string()).unwrap_or(e.code.to_string())).collect()
                     }) },
                 );
             }
