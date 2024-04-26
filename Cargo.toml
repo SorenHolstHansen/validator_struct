@@ -1,6 +1,6 @@
 [package]
 name = "validator_struct"
-version = "0.2.2"
+version = "0.3.0"
 edition = "2021"
 description = "A simple ergonomic addition to the validator crate"
 authors = ["Søren H. Hansen"]
@@ -13,7 +13,7 @@ license = "MIT"
 proc-macro = true
 
 [dependencies]
-validator = { version = "0.16.1", features = ["derive"] }
+validator = { version = "0.18.1", features = ["derive"] }
 syn = { version = "2.0", features = ["parsing", "extra-traits"] }
 quote = "1.0"
 proc-macro2 = "1.0"

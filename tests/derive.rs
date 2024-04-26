@@ -36,7 +36,7 @@ mod tests {
     #[derive(Deserialize, Validate, ValidatorStruct)]
     #[validator_struct(derive(Serialize))]
     struct BasicSignupForm {
-        #[validate(custom = "validate_username")]
+        #[validate(custom(function = "validate_username"))]
         username: String,
     }
 
