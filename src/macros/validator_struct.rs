@@ -54,7 +54,7 @@ pub fn validator_struct_inner(ast: DeriveInput) -> syn::Result<TokenStream> {
 
     let impl_block = quote! {
         impl #struct_name {
-            fn validate_struct(&self) -> Result<(), #name> {
+            pub fn validate_struct(&self) -> Result<(), #name> {
                 match self.validate() {
                     Ok(_) => Ok(()),
                     Err(e) => {
