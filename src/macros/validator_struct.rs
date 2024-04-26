@@ -35,7 +35,7 @@ pub fn validator_struct_inner(ast: DeriveInput) -> syn::Result<TokenStream> {
     for field in struct_data.fields {
         if !field.attrs.is_empty() {
             if let Some(ident) = field.ident {
-                fields.push(quote! { #ident: Option<Vec<String>> });
+                fields.push(quote! { pub #ident: Option<Vec<String>> });
                 error_fields.push(
                     quote! { #ident: field_errors.remove(std::stringify!(#ident)).map(|v| {
                         v.iter().map(|e| e.message.clone().map(|m| m.to_string()).unwrap_or(e.code.to_string())).collect()
